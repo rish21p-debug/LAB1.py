@@ -1,0 +1,82 @@
+def frequency(txt):
+    '''
+        >>> frequency('mama')
+        {'m': 2, 'a': 2}
+        >>> answer = frequency('We ARE Penn State!!!')
+        >>> answer
+        {'w': 1, 'e': 4, 'a': 2, 'r': 1, 'p': 1, 'n': 2, 's': 1, 't': 2}
+        >>> frequency('One who IS being Trained')
+        {'o': 2, 'n': 3, 'e': 3, 'w': 1, 'h': 1, 'i': 3, 's': 1, 'b': 1, 'g': 1, 't': 1, 'r': 1, 'a': 1, 'd': 1}
+    '''
+    # - YOUR CODE STARTS HERE 
+    freq_dict = {}
+    for char in txt:
+        if char.isalpha():  # Filter to only keep alphabetic characters [cite: 43]
+            lower_char = char.lower()  # Force lowercase consistency [cite: 46]
+            if lower_char in freq_dict:
+                freq_dict[lower_char] += 1
+            else:
+                freq_dict[lower_char] = 1
+    return freq_dict
+
+
+def invert(d):
+    """
+        >>> invert({'one':1, 'two':2,  'three':3, 'four':4})
+        {1: 'one', 2: 'two', 3: 'three', 4: 'four'}
+        >>> invert({'one':1, 'two':2, 'uno':1, 'dos':2, 'three':3})
+        {3: 'three'}
+        >>> invert({'123-456-78':'Sara', '987-12-585':'Alex', '258715':'sara', '00000':'Alex'}) 
+        {'Sara': '123-456-78', 'sara': '258715'}
+    """
+    # - YOUR CODE STARTS HERE -
+    # First pass: Count how many times each value appears to identify non-unique values
+    value_counts = {}
+    for value in d.values():
+        if value in value_counts:
+            value_counts[value] += 1
+        else:
+            value_counts[value] = 1
+            
+    # Second pass: Invert pairs only if the value is completely unique [cite: 60]
+    inverted_dict = {}
+    for key, value in d.items():
+        if value_counts[value] == 1:
+            inverted_dict[value] = key
+            
+    return inverted_dict
+
+
+def employee_update(d, bonus, year):
+    """
+        >>> records = {2020:{"John":["Managing Director","Full-time",65000],"Sally":["HR Director","Full-time",60000],"Max":["Sales Associate","Part-time",20000]}, 2021:{"John":["Managing Director","Full-time",70000],"Sally":["HR Director","Full-time",65000],"Max":["Sales Associate","Part-time",25000]}}
+        >>> employee_update(records,7500,2022)
+        {2020: {'John': ['Managing Director', 'Full-time', 65000], 'Sally': ['HR Director', 'Full-time', 60000], 'Max': ['Sales Associate', 'Part-time', 20000]}, 2021: {'John': ['Managing Director', 'Full-time', 70000], 'Sally': ['HR Director', 'Full-time', 65000], 'Max': ['Sales Associate', 'Part-time', 25000]}, 2022: {'John': ['Managing Director', 'Full-time', 77500], 'Sally': ['HR Director', 'Full-time', 72500], 'Max': ['Sales Associate', 'Part-time', 32500]}}
+    """
+    # - YOUR CODE STARTS HERE -
+    prev_year = year - 1
+    prev_year_data = d[prev_year]
+    
+    # Instantiate an entirely new dictionary to isolate memory reference bugs [cite: 96]
+    new_year_data = {}
+    
+    for employee, info in prev_year_data.items():
+        old_salary = info[2]
+        new_salary = old_salary + bonus
+        
+        # Build a fresh list containing the updated salary data [cite: 96]
+        new_year_data[employee] = [info[0], info[1], new_salary]
+        
+    d[year] = new_year_data
+    return d
+
+
+def run_tests():
+    import doctest
+
+    # Run start tests in all docstrings
+    doctest.testmod()
+    
+
+if __name__ == "__main__":
+    run_tests()
