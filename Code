@@ -64,7 +64,7 @@ def employee_update(d, bonus, year):
         >>> employee_update(records,7500,2022)
         {2020: {'John': ['Managing Director', 'Full-time', 65000], 'Sally': ['HR Director', 'Full-time', 60000], 'Max': ['Sales Associate', 'Part-time', 20000]}, 2021: {'John': ['Managing Director', 'Full-time', 70000], 'Sally': ['HR Director', 'Full-time', 65000], 'Max': ['Sales Associate', 'Part-time', 25000]}, 2022: {'John': ['Managing Director', 'Full-time', 77500], 'Sally': ['HR Director', 'Full-time', 72500], 'Max': ['Sales Associate', 'Part-time', 32500]}}
         >>> records1 = {2021: {"Jack": ["Intern", "Part-time", 20000]}}
-        >>> employee_update(records5, 865, 2022)
+        >>> employee_update(records1, 865, 2022)
         {2021: {'Jack': ['Intern', 'Part-time', 20000]}, 2022: {'Jack': ['Intern', 'Part-time', 20865]}}
     """
     # - YOUR CODE STARTS HERE -
