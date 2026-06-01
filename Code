@@ -10,6 +10,10 @@ def frequency(txt : str) -> dict: #Takes in a non-empty string as an input
         {'w': 1, 'e': 4, 'a': 2, 'r': 1, 'p': 1, 'n': 2, 's': 1, 't': 2}
         >>> frequency('One who IS being Trained')
         {'o': 2, 'n': 3, 'e': 3, 'w': 1, 'h': 1, 'i': 3, 's': 1, 'b': 1, 'g': 1, 't': 1, 'r': 1, 'a': 1, 'd': 1}
+        >>> frequency('aAbBcC')
+        {'a': 2, 'b': 2, 'c': 2}
+        >>> frequency('ACC')
+        {'a': 1, 'c': 2}
     '''
     alphabet_frequency = {} # Empty dictionary that will show frequency of each lowercase alphabet
     for char in txt:
@@ -29,6 +33,10 @@ def invert(d: dict) -> dict:
         {3: 'three'}
         >>> invert({'123-456-78':'Sara', '987-12-585':'Alex', '258715':'sara', '00000':'Alex'}) 
         {'Sara': '123-456-78', 'sara': '258715'}
+        >>> invert({'a': 1, 'b': 2, 'c': 1, 'd': 3})
+        {2: 'b', 3: 'd'}
+        >>> invert({'a': 1, 'b': 1})
+        {}
     """
     # - YOUR CODE STARTS HERE -
     unique_vals = []     # 2 lists that store unique versus duplicate values
@@ -55,6 +63,9 @@ def employee_update(d, bonus, year):
         >>> records = {2020:{"John":["Managing Director","Full-time",65000],"Sally":["HR Director","Full-time",60000],"Max":["Sales Associate","Part-time",20000]}, 2021:{"John":["Managing Director","Full-time",70000],"Sally":["HR Director","Full-time",65000],"Max":["Sales Associate","Part-time",25000]}}
         >>> employee_update(records,7500,2022)
         {2020: {'John': ['Managing Director', 'Full-time', 65000], 'Sally': ['HR Director', 'Full-time', 60000], 'Max': ['Sales Associate', 'Part-time', 20000]}, 2021: {'John': ['Managing Director', 'Full-time', 70000], 'Sally': ['HR Director', 'Full-time', 65000], 'Max': ['Sales Associate', 'Part-time', 25000]}, 2022: {'John': ['Managing Director', 'Full-time', 77500], 'Sally': ['HR Director', 'Full-time', 72500], 'Max': ['Sales Associate', 'Part-time', 32500]}}
+        >>> records1 = {2021: {"Jack": ["Intern", "Part-time", 20000]}}
+        >>> employee_update(records5, 865, 2022)
+        {2021: {'Jack': ['Intern', 'Part-time', 20000]}, 2022: {'Jack': ['Intern', 'Part-time', 20865]}}
     """
     # - YOUR CODE STARTS HERE -
     previous_yr = year - 1   
