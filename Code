@@ -31,7 +31,7 @@ def invert(d: dict) -> dict:
         {'Sara': '123-456-78', 'sara': '258715'}
     """
     # - YOUR CODE STARTS HERE -
-    unique_vals = []     # 2 dictionaries that store unique versus duplicate values
+    unique_vals = []     # 2 lists that store unique versus duplicate values
     duplicate_vals = []
     for key in d: # Iterates through each key in the dictionary d
         value = d[key]
