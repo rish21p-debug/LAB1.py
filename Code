@@ -1,3 +1,6 @@
+# LAB1
+# REMINDER: The work in this assignment must be your own original work and must be completed alone
+
 def frequency(txt : str) -> dict: #Takes in a non-empty string as an input
     '''
         >>> frequency('mama')
@@ -18,59 +21,67 @@ def frequency(txt : str) -> dict: #Takes in a non-empty string as an input
                 alphabet_frequency[lowercase_char] = 1
     return alphabet_frequency
 
-
-def invert(d : dict) -> dict:
+def invert(d: dict) -> dict:
     """
         >>> invert({'one':1, 'two':2,  'three':3, 'four':4})
         {1: 'one', 2: 'two', 3: 'three', 4: 'four'}
         >>> invert({'one':1, 'two':2, 'uno':1, 'dos':2, 'three':3})
         {3: 'three'}
-        >>> invert({'123-456-78':'Sara', '987-12-585':'Alex', '258715':'sara','00000':'Alex'}) 
+        >>> invert({'123-456-78':'Sara', '987-12-585':'Alex', '258715':'sara', '00000':'Alex'}) 
         {'Sara': '123-456-78', 'sara': '258715'}
     """
-    value_frequency = {}   # An empty dictionary that counts the values that are in d
-    for value in d.values():
-        if value in value_frequency:  # Checks if the value is in the dictionary and adds it each time it appears
-            value_frequency[value] += 1
-        else:
-            value_frequency[value] = 1
-    inverse_dict = {}
-    for key, value in d.items():
-        if value_frequency[value] == 1:
+    # - YOUR CODE STARTS HERE -
+    unique_vals = []     # 2 dictionaries that store unique versus duplicate values
+    duplicate_vals = []
+    for key in d: # Iterates through each key in the dictionary d
+        value = d[key]
+        if value not in duplicate_vals:
+            if value in unique_vals:
+                unique_vals.remove(value)
+                duplicate_vals.append(value)
+            else:
+                unique_vals.append(value)
+    inverse_dict = {}    # New dictionary to store inverse value:key pairs
+    for key in d:
+        value = d[key]
+        if value in unique_vals:
             inverse_dict[value] = key
+            
     return inverse_dict
 
 
-def employee_update(d : dict, bonus, year: int) -> dict:
+def employee_update(d, bonus, year):
     """
         >>> records = {2020:{"John":["Managing Director","Full-time",65000],"Sally":["HR Director","Full-time",60000],"Max":["Sales Associate","Part-time",20000]}, 2021:{"John":["Managing Director","Full-time",70000],"Sally":["HR Director","Full-time",65000],"Max":["Sales Associate","Part-time",25000]}}
         >>> employee_update(records,7500,2022)
         {2020: {'John': ['Managing Director', 'Full-time', 65000], 'Sally': ['HR Director', 'Full-time', 60000], 'Max': ['Sales Associate', 'Part-time', 20000]}, 2021: {'John': ['Managing Director', 'Full-time', 70000], 'Sally': ['HR Director', 'Full-time', 65000], 'Max': ['Sales Associate', 'Part-time', 25000]}, 2022: {'John': ['Managing Director', 'Full-time', 77500], 'Sally': ['HR Director', 'Full-time', 72500], 'Max': ['Sales Associate', 'Part-time', 32500]}}
     """
-    # - YOUR CODE STARTS HERE 
-    previous_yr = year - 1
-    previous_info = d[previous_yr]
+    # - YOUR CODE STARTS HERE -
+    previous_yr = year - 1   
+    previous_yr_info = d[previous_yr] 
     
-    # New dictionary that will store data for new bonus
-    new_year_data = {}
+    new_year_data = {}    # Empty dictionary that will hold new year's data
     
-    for employee, info in previous_info.items():
-        old_salary = info[2]
-        new_salary = old_salary + bonus
+    for employee in previous_yr_info: # Goes through each employee name from previous year
+        old_info = previous_yr_info[employee]
+
+        job_title = old_info[0]   # Finds info by position in the list
+        job_type = old_info[1]
+        old_sal = old_info[2]
         
-        # List that contains new salaries 
-        new_year_data[employee] = [info[0], info[1], new_salary]
+        new_sal = old_sal + bonus 
+        
+        new_info_list = [job_title, job_type, new_sal] # New info is inserted into a new list 
+        new_year_data[employee] = new_info_list
         
     d[year] = new_year_data
-    return d
+    return d  #Returns the key:value pair with new bonus
 
 
 def run_tests():
     import doctest
 
-    # Run start tests in all docstrings
     doctest.testmod()
     
-
 if __name__ == "__main__":
     run_tests()
